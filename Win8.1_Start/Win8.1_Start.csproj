@@ -9,4 +9,10 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+    <ItemGroup>
+      <!-- Ensure images render at runtime (pack URIs) -->
+      <None Remove="Res\**\*.png" />
+      <Resource Include="Res\**\*.png" />
+    </ItemGroup>
+
 </Project>
