@@ -10,4 +10,3 @@ namespace Win8._1_Start;
 public partial class App : Application
 {
 }
-
