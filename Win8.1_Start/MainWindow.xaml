@@ -1,12 +1,150 @@
-﻿<Window x:Class="Win8._1_Start.MainWindow"
+<Window x:Class="Win8._1_Start.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Win8._1_Start"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Windows 8.1 Start"
+        WindowStyle="None"
+        WindowState="Maximized"
+        ResizeMode="NoResize"
+        Background="Black">
+    <Window.Resources>
+        <Style x:Key="TileButtonStyle" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                 To="1.1" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                 To="1.1" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                 To="1" Duration="0:0:0.12"/>
+                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                 To="1" Duration="0:0:0.12"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
+        <Style x:Key="MicroTileStyle" TargetType="Border">
+            <Setter Property="Width" Value="52"/>
+            <Setter Property="Height" Value="52"/>
+            <Setter Property="CornerRadius" Value="1"/>
+            <Setter Property="Background" Value="#2AFFFFFF"/>
+            <Setter Property="Margin" Value="0,0,7,7"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Res/Backgorund.png" Stretch="UniformToFill"/>
+        </Grid.Background>
+
+        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Disabled"
+                      CanContentScroll="False"
+                      Margin="0">
+            <Canvas Width="1920" Height="760">
+                <!-- Основной блок плиток с отступами: 103 слева, 583 справа -->
+                <Canvas Canvas.Left="103" Canvas.Top="90" Width="1234" Height="680">
+                    <!-- ROW 1 -->
+                    <Button Canvas.Left="0" Canvas.Top="0" Width="214" Height="104" Background="#0087D0" Style="{StaticResource TileButtonStyle}">
+                        <Image Source="Res/mail.png" Width="56" Height="56" Stretch="Uniform"/>
+                    </Button>
+                    <Button Canvas.Left="224" Canvas.Top="0" Width="103" Height="101" Background="#2C87EF" Style="{StaticResource TileButtonStyle}">
+                        <Image Source="Res/ie.png" Width="44" Height="44" Stretch="Uniform"/>
+                    </Button>
+                    <Button Canvas.Left="337" Canvas.Top="0" Width="103" Height="101" Background="#008C01" Style="{StaticResource TileButtonStyle}">
+                        <Image Source="Res/store.png" Width="44" Height="44" Stretch="Uniform"/>
+                    </Button>
+
+                    <!-- ROW 2 -->
+                    <Button Canvas.Left="0" Canvas.Top="114" Width="214" Height="104" Background="#603CBB" Style="{StaticResource TileButtonStyle}">
+                        <Image Source="Res/calendar.png" Width="56" Height="56" Stretch="Uniform"/>
+                    </Button>
+                    <Button Canvas.Left="224" Canvas.Top="114" Width="103" Height="101" Background="#DA532C" Style="{StaticResource TileButtonStyle}">
+                        <Image Source="Res/help.png" Width="44" Height="44" Stretch="Uniform"/>
+                    </Button>
+                    <Button Canvas.Left="337" Canvas.Top="114" Width="103" Height="101" Background="#0A56BF" Style="{StaticResource TileButtonStyle}">
+                        <Image Source="Res/onedrive.png" Width="44" Height="44" Stretch="Uniform"/>
+                    </Button>
+
+                    <!-- ROW 3 -->
+                    <Button Canvas.Left="0" Canvas.Top="228" Width="214" Height="104" Background="#00A200" Style="{StaticResource TileButtonStyle}">
+                        <Image Source="Res/finance.png" Width="56" Height="56" Stretch="Uniform"/>
+                    </Button>
+                    <Button Canvas.Left="224" Canvas.Top="228" Width="213" Height="213" Background="#0C7CB3" Style="{StaticResource TileButtonStyle}">
+                        <Grid>
+                            <Image Source="Res/weather.png" Width="70" Height="70" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,12,12" Width="170">
+                                <Border Style="{StaticResource MicroTileStyle}"/>
+                                <Border Style="{StaticResource MicroTileStyle}"/>
+                                <Border Style="{StaticResource MicroTileStyle}"/>
+                                <Border Style="{StaticResource MicroTileStyle}"/>
+                            </WrapPanel>
+                        </Grid>
+                    </Button>
+
+                    <!-- ROW 4 -->
+                    <Button Canvas.Left="0" Canvas.Top="342" Width="103" Height="101" Background="#009BAD" Style="{StaticResource TileButtonStyle}">
+                        <Image Source="Res/photo.png" Width="44" Height="44" Stretch="Uniform"/>
+                    </Button>
+                    <Button Canvas.Left="111" Canvas.Top="342" Width="103" Height="101" Background="#94428E" Style="{StaticResource TileButtonStyle}">
+                        <Image Source="Res/onenote.png" Width="44" Height="44" Stretch="Uniform"/>
+                    </Button>
+
+                    <!-- ROW 5 -->
+                    <Button Canvas.Left="0" Canvas.Top="453" Width="103" Height="101" Background="#DA532C" Style="{StaticResource TileButtonStyle}">
+                        <Image Source="Res/people.png" Width="44" Height="44" Stretch="Uniform"/>
+                    </Button>
+                    <Button Canvas.Left="111" Canvas.Top="453" Width="103" Height="101" Background="#00BDF2" Style="{StaticResource TileButtonStyle}">
+                        <Image Source="Res/skype.png" Width="44" Height="44" Stretch="Uniform"/>
+                    </Button>
+                    <Button Canvas.Left="224" Canvas.Top="453" Width="214" Height="104" Background="#623DBD" Style="{StaticResource TileButtonStyle}">
+                        <Image Source="Res/sport.png" Width="56" Height="56" Stretch="Uniform"/>
+                    </Button>
+
+                    <!-- ROW 6 -->
+                    <Button Canvas.Left="0" Canvas.Top="567" Width="214" Height="104" Background="#1F4B93" Style="{StaticResource TileButtonStyle}">
+                        <Image Source="Res/DesktopIcon.png" Width="72" Height="72" Stretch="Uniform"/>
+                    </Button>
+                    <Button Canvas.Left="224" Canvas.Top="567" Width="214" Height="104" Background="#BD1E4A" Style="{StaticResource TileButtonStyle}">
+                        <Image Source="Res/news.png" Width="56" Height="56" Stretch="Uniform"/>
+                    </Button>
+                </Canvas>
+            </Canvas>
+        </ScrollViewer>
     </Grid>
 </Window>
